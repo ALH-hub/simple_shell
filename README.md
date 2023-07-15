@@ -7,7 +7,7 @@ For this project, we expect you to look at these concepts:
 
 ## Background Context
 Write a simple UNIX command interpreter.
-[Simple shell funny image](https://s3.amazonaws.com/intranet-projects-files/holbertonschool-low_level_programming/235/shell.jpeg)
+[Simple shell funny image](!https://s3.amazonaws.com/intranet-projects-files/holbertonschool-low_level_programming/235/shell.jpeg)
 
 ## Resources
 **Read or watch:**
