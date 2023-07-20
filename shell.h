@@ -8,7 +8,9 @@
 #include <sys/types.h>
 #include <sys/wait.h>
 
-void exec_word_command(void);
+extern char **environ;
+
+void exec_command(void);
 int _putchar(char c);
 
 #endif

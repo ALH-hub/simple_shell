@@ -1,27 +1,13 @@
 #include "shell.h"
 
-extern char **environ;
-
-void exec_word_command();
 int _puts(char *str);
-
-/**
- * main - test code
- * Return: nothin
- */
-
-int main()
-{
-	while (1)
-		exec_word_command();
-}
 
 /**
  * exec_word_command - execute a one word command
  * Return: nothing
  */
 
-void exec_word_command(void)
+void exec_command(void)
 {
 	ssize_t bufsize = 0;
 	char *line = NULL;
@@ -37,9 +23,10 @@ void exec_word_command(void)
 	}
 
 	char *token = strtok(line, " \n");
+
 	if (token == NULL)
 		return;
-		
+
 	char *argv[] = {token, NULL, NULL};
 
 	child_pid = fork();
@@ -76,4 +63,3 @@ int _puts(char *str)
 	}
 	return (count);
 }
-
