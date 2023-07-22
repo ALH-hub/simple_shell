@@ -8,5 +8,7 @@
 int main(void)
 {
 	while (1)
+	{
 		exec_command();
+	}
 }

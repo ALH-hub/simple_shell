@@ -1,6 +1,8 @@
 #include "shell.h"
 
 int _puts(char *str);
+int search_command(char **argv, char *path);
+void exec_command(void);
 
 /**
  * exec_command - execute a one word command
@@ -14,24 +16,28 @@ int _puts(char *str);
 
 void exec_command(void)
 {
-	ssize_t bufsize = 0;
+	size_t bufsize = 0;
 	char *line = NULL;
 	char **env = environ;
 	char *argv[ARGS];
 	pid_t child_pid;
 	int status, i = 1;
+	char *token = NULL;
+	char *path = _getenv("PATH");
 
 	_puts("#cisfunc$ ");
 	if (getline(&line, &bufsize, stdin) == -1)
 	{
+		fflush(stdout);
 		_puts("Usage: simple_shell");
 		return;
 	}
 
-	char *token = strtok(line, " \n");
+	token = strtok(line, " \n");
 
 	if (token == NULL)
 		return;
+
 	argv[0] = token;
 
 	while ((token = strtok(NULL, " \n")) != NULL)
@@ -41,20 +47,24 @@ void exec_command(void)
 	}
 	argv[i] = NULL;
 
-	child_pid = fork();
-
-	if (child_pid == 0)
+	if (search_command(argv, path) == 1)
 	{
-		if (execve(argv[0], argv, env) == -1)
+		child_pid = fork();
+		if (child_pid == 0)
 		{
-			perror("Error");
-		}
+			if (execve(argv[0], argv, env) == -1)
+				perror("Error");
+		} else
+			wait(&status);
 	} else
+		if (execve(argv[0], argv, env) == -1)
+			perror("Error");
+
+	if (line != NULL)
 	{
-		wait(&status);
+		free(line);
+		line = NULL;
 	}
-	free(line);
-	line = NULL;
 }
 
 /**
@@ -73,4 +83,46 @@ int _puts(char *str)
 		count++;
 	}
 	return (count);
+}
+
+/**
+ * search_command - search for the presence of a command in a file
+ * @argv: the command found at argv[0] of the array
+ * @path: the path to search the command in
+ * Return: 1 if found and 0 if not found
+ */
+
+int search_command(char **argv, char *path)
+{
+	char *command = argv[0];
+	struct stat status;
+	char pathc[1024];
+	char *token = NULL;
+
+	strcpy(pathc, path);
+
+	if (pathc == NULL || command == NULL || (pathc[0] == '\0'))
+		return (0);
+
+	if (stat(command, &status) == 0)
+		return (1);
+
+	token = strtok(pathc, ":");
+
+	while (token != NULL)
+	{
+		char pathbuf[1024];
+
+		strcpy(pathbuf, token);
+		strcat(pathbuf, "/");
+		strcat(pathbuf, command);
+		if (stat(pathbuf, &status) == 0)
+		{
+			argv[0] = pathbuf;
+			return (1);
+		}
+		token = strtok(NULL, ":");
+	}
+
+	return (0);
 }
