@@ -26,7 +26,9 @@ void exec_command(void)
 	char *path = _getenv("PATH");
 
 	fflush(stdout);
-	_puts("#cisfunc$ ");
+	if (isatty(STDIN_FILENO))
+		_puts("#cisfunc$ ");
+
 	if (getline(&line, &bufsize, stdin) == -1)
 	{
 		exit(1);
