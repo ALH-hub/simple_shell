@@ -46,11 +46,11 @@ void exec_command(void)
 	}
 	argv[i] = NULL;
 
-	if ((strcmp(argv[0], "exit") == 0) && (argv[1] == NULL))
+	if ((_strcmp(argv[0], "exit") == 0) && (argv[1] == NULL))
 		exit(0);
 
 	i = 0;
-	if ((strcmp(argv[0], "env") == 0) && (argv[1] == NULL))
+	if ((_strcmp(argv[0], "env") == 0) && (argv[1] == NULL))
 	{
 		while (env[i] != NULL)
 		{
@@ -113,7 +113,7 @@ int search_command(char **argv, char *path)
 	char pathc[1024];
 	char *token = NULL;
 
-	strcpy(pathc, path);
+	_strcpy(pathc, path);
 
 	if (pathc == NULL || command == NULL || (pathc[0] == '\0'))
 		return (0);
@@ -127,9 +127,10 @@ int search_command(char **argv, char *path)
 	{
 		char pathbuf[1024];
 
-		strcpy(pathbuf, token);
-		strcat(pathbuf, "/");
-		strcat(pathbuf, command);
+		_strcpy(pathbuf, token);
+		_strcat(pathbuf, "/");
+		_strcat(pathbuf, command);
+
 		if (stat(pathbuf, &status) == 0)
 		{
 			argv[0] = pathbuf;
