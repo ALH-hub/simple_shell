@@ -25,12 +25,11 @@ void exec_command(void)
 	char *token = NULL;
 	char *path = _getenv("PATH");
 
+	fflush(stdout);
 	_puts("#cisfunc$ ");
 	if (getline(&line, &bufsize, stdin) == -1)
 	{
-		fflush(stdout);
-		_puts("Usage: simple_shell");
-		return;
+		exit(1);
 	}
 
 	token = strtok(line, " \n");
@@ -46,6 +45,21 @@ void exec_command(void)
 		i++;
 	}
 	argv[i] = NULL;
+
+	if ((strcmp(argv[0], "exit") == 0) && (argv[1] == NULL))
+		exit(0);
+
+	i = 0;
+	if ((strcmp(argv[0], "env") == 0) && (argv[1] == NULL))
+	{
+		while (env[i] != NULL)
+		{
+			_puts(env[i]);
+			_putchar('\n');
+			i++;
+		}
+		return;
+	}
 
 	if (search_command(argv, path) == 1)
 	{
