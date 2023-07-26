@@ -67,6 +67,9 @@ void exec_command(char **av)
 	if (search_command(argv, path) == 1)
 	{
 		child_pid = fork();
+		if (child_pid == -1)
+			perror("fork");
+		else
 		if (child_pid == 0)
 		{
 			if (execve(argv[0], argv, env) == -1)
