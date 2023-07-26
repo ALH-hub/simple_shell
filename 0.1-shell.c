@@ -17,11 +17,13 @@ void exec_command(void)
 	char *argv[ARGS];
 	int status;
 
-	_puts("#cisfunc$ ");
+	fflush(stdout);
+	if (isatty(STDIN_FILENO))
+		_puts("#cisfunc$ ");
+
 	if (getline(&line, &bufsize, stdin) == -1)
 	{
-		_puts("Usage: simple_shell");
-		return;
+		exit(1);
 	}
 
 	token = strtok(line, " \n");
