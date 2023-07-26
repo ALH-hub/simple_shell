@@ -7,7 +7,7 @@ int _puts(char *str);
  * Return: nothing
  */
 
-void exec_command(void)
+void exec_command(char **av)
 {
 	size_t bufsize = 0;
 	char *line = NULL;
@@ -40,7 +40,7 @@ void exec_command(void)
 	{
 		if (execve(token, argv, env) == -1)
 		{
-			perror("Error");
+			perror(av[0]);
 		}
 	} else
 	{

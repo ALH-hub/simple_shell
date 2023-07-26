@@ -13,7 +13,7 @@
 
 extern char **environ;
 
-void exec_command(void);
+void exec_command(char **av);
 int _putchar(char c);
 size_t _strlen(const char *s);
 char *_strcpy(char *dest, const char *src);

@@ -5,10 +5,13 @@
  * Return: nothing
  */
 
-int main(void)
+int main(int ac, char **av)
 {
+	if (ac < 0)
+		exit(1);
+
 	while (1)
 	{
-		exec_command();
+		exec_command(av);
 	}
 }
