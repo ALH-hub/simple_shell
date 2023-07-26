@@ -22,7 +22,9 @@ char **_token(char *lineptre)
 			size++;
 	}
 	if ((size + 1) == _strlen(lineptre))
-		return (command = malloc(sizeof(char *) * (size + 2)));
+		return (NULL);
+
+	command = malloc(sizeof(char *) * (size + 2));
 	if (command == NULL)
 		return (NULL);
 

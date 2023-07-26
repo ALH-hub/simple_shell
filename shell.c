@@ -21,13 +21,13 @@ int exec_command(char **env, char **av, int path)
 		path++;
 		user_command = _token(command);
 		if (!user_command)
-
 		{
 			free(command);
 			return (_exit);
 		}
-		if ((!_strcmp(user_command[0], "exit")) && user_command[1] == NULL)
+		if (!(_strcmp(user_command[0], "exit")) && user_command[1] == NULL)
 			exit_cmd(user_command, command, _exit);
+
 		if (!_strcmp(user_command[0], "env"))
 			_printenv(env);
 		else
