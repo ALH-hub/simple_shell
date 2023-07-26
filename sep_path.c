@@ -15,11 +15,11 @@ int sep_path(char **arg, char **env)
 
 	if (stat(*arg, &lineptre) == 0)
 		return (-1);
-	
+
 	path1 = _getpath(env);
 	if (!path1)
 		return (-1);
-	
+
 	token = _strtok(path1, ":");
 	command = _strlen(*arg);
 	while (token)

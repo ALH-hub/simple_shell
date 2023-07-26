@@ -68,7 +68,7 @@ int main(int ac, char **av, char **env)
 
 	while (1)
 	{
-	exit = exec_command(env, av, path);
+		exit = exec_command(env, av, path);
 	}
 	return (exit);
 }

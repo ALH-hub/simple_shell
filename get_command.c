@@ -34,7 +34,7 @@ char *_getpath(char **env)
  * Return: the command entered by user
  */
 
-char *get_command (void)
+char *get_command(void)
 {
 	char *line = NULL;
 	size_t _user = 0;
