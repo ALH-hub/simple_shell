@@ -36,5 +36,4 @@ char *_path(char **env);
 int is_delim(char c, char *delim);
 int _isalpha(int c);
 int _atoi(const char *str);
-
 #endif
