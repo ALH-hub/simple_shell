@@ -30,7 +30,7 @@ char *_getpath(char **env)
 }
 
 /**
- * _get_command - get the user's command
+ * get_command - get the user's command
  * Return: the command entered by user
  */
 
